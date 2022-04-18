@@ -1,0 +1,10 @@
+D:\Documents\CS3280\Assignment3\bin\Debug\Assignment3.exe.config
+D:\Documents\CS3280\Assignment3\bin\Debug\Assignment3.exe
+D:\Documents\CS3280\Assignment3\bin\Debug\Assignment3.pdb
+D:\Documents\CS3280\Assignment3\obj\Debug\Assignment3.csprojAssemblyReference.cache
+D:\Documents\CS3280\Assignment3\obj\Debug\Assignment3.Form1.resources
+D:\Documents\CS3280\Assignment3\obj\Debug\Assignment3.Properties.Resources.resources
+D:\Documents\CS3280\Assignment3\obj\Debug\Assignment3.csproj.GenerateResource.cache
+D:\Documents\CS3280\Assignment3\obj\Debug\Assignment3.csproj.CoreCompileInputs.cache
+D:\Documents\CS3280\Assignment3\obj\Debug\Assignment3.exe
+D:\Documents\CS3280\Assignment3\obj\Debug\Assignment3.pdb
