@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Assignment3
@@ -13,7 +13,6 @@ namespace Assignment3
 
     public partial class Form1 : Form
     {
-
         int numStudents = 0;
         int numAssignments = 0;
         int currStudentIndex = 0;
@@ -39,6 +38,7 @@ namespace Assignment3
             saveScoreBtn.Enabled = false;
             displayScoresBtn.Enabled = false;
             resetScoresBtn.Enabled = false;
+            outputFileBtn.Enabled = false;
 
             studNameTxtBx.Enabled = false;
             assignScoreTxtBx.Enabled = false;
@@ -61,6 +61,7 @@ namespace Assignment3
             saveScoreBtn.Enabled = true;
             displayScoresBtn.Enabled = true;
             resetScoresBtn.Enabled = true;
+            outputFileBtn.Enabled = true;
 
             studNameTxtBx.Enabled = true;
             assignScoreTxtBx.Enabled = true;
@@ -77,7 +78,7 @@ namespace Assignment3
         private void saveScoreBtn_Click(object sender, EventArgs e)
         {
             resetLabels();
-            
+
             try
             {
                 currAssignIndex = Int32.Parse(assignNumTxtBx.Text) - 1;
@@ -222,15 +223,14 @@ namespace Assignment3
 
         private void displayScoresBtn_Click(object sender, EventArgs e)
         {
+            scoreDisplayTxtBx.Text = getScoresData(); 
+        }
+
+        private string getScoresData()
+        {
             scoreDisplayTxtBx.Text = "";
             textOutput = "";
             textOutput = "STUDENT" + "\t" + "\t" + "\t";
-
-            //for (int row = 0; row < studentNames.GetLength(0); row++)
-            //{
-            //    names += studentNames[row] + ", ";
-            //}
-            //names += "\n";
 
             for (int row = 0; row < studentScores.GetLength(1); row++)
             {
@@ -240,7 +240,7 @@ namespace Assignment3
 
             for (int row = 0; row < studentScores.GetLength(0); row++)
             {
-                textOutput += studentNames[row] +  "\t" + "\t" + "\t";
+                textOutput += studentNames[row] + "\t" + "\t" + "\t";
 
                 for (int column = 0; column < studentScores.GetLength(1); column++)
                 {
@@ -249,8 +249,32 @@ namespace Assignment3
                 textOutput += "\n";
             }
 
-            scoreDisplayTxtBx.Text = textOutput;
+            return textOutput;
 
+        }
+
+        private void outputFileBtn_Click(object sender, EventArgs e)
+        {
+            outputFileBtn.Enabled = false;
+
+            //Use previous methods to get a string of data
+            string scoreData = getScoresData();
+            //initiate a new class to process threading the output file
+            ThreadLogic clsThread = new ThreadLogic(scoreData);
+
+            //start the thread that begins the classFunction to output/process data
+            Thread myThread = new Thread(new ThreadStart(clsThread.OutputFile));
+            myThread.Start();
+
+            if (myThread.IsAlive)
+            {
+                OutputLbl.ForeColor = Color.Red;
+                OutputLbl.Text = "Writing to file";
+            }
+
+            OutputLbl.ForeColor = Color.Green;
+            OutputLbl.Text = "Finished writing to file";
+            outputFileBtn.Enabled = true;
         }
     }
 }

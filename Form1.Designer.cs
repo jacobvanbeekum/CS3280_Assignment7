@@ -1,7 +1,8 @@
 ﻿namespace Assignment3
 {
     partial class Form1
-    {
+    {       
+        
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -57,6 +58,8 @@
             this.navErrorLbl = new System.Windows.Forms.Label();
             this.saveNameSuccessLbl = new System.Windows.Forms.Label();
             this.saveScoreSuccessLbl = new System.Windows.Forms.Label();
+            this.outputFileBtn = new System.Windows.Forms.Button();
+            this.OutputLbl = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -342,11 +345,31 @@
             this.saveScoreSuccessLbl.Size = new System.Drawing.Size(0, 13);
             this.saveScoreSuccessLbl.TabIndex = 9;
             // 
+            // outputFileBtn
+            // 
+            this.outputFileBtn.Location = new System.Drawing.Point(379, 391);
+            this.outputFileBtn.Name = "outputFileBtn";
+            this.outputFileBtn.Size = new System.Drawing.Size(93, 33);
+            this.outputFileBtn.TabIndex = 10;
+            this.outputFileBtn.Text = "Output to file";
+            this.outputFileBtn.UseVisualStyleBackColor = true;
+            this.outputFileBtn.Click += new System.EventHandler(this.outputFileBtn_Click);
+            // 
+            // OutputLbl
+            // 
+            this.OutputLbl.AutoSize = true;
+            this.OutputLbl.Location = new System.Drawing.Point(484, 403);
+            this.OutputLbl.Name = "OutputLbl";
+            this.OutputLbl.Size = new System.Drawing.Size(0, 13);
+            this.OutputLbl.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(773, 573);
+            this.Controls.Add(this.OutputLbl);
+            this.Controls.Add(this.outputFileBtn);
             this.Controls.Add(this.saveScoreSuccessLbl);
             this.Controls.Add(this.saveNameSuccessLbl);
             this.Controls.Add(this.navErrorLbl);
@@ -402,6 +425,8 @@
         private System.Windows.Forms.Label scoreEntryLbl;
         private System.Windows.Forms.Label saveNameSuccessLbl;
         private System.Windows.Forms.Label saveScoreSuccessLbl;
+        private System.Windows.Forms.Button outputFileBtn;
+        internal System.Windows.Forms.Label OutputLbl;
     }
 }
 
