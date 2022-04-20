@@ -5,8 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
+using System.Windows.Threading;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Assignment3
 {
@@ -26,6 +27,7 @@ namespace Assignment3
             InitializeComponent();
             lockForm();
         }
+        
 
         #region FormLocking
         private void lockForm() 
@@ -255,26 +257,40 @@ namespace Assignment3
 
         private void outputFileBtn_Click(object sender, EventArgs e)
         {
-            outputFileBtn.Enabled = false;
+            ToggleBtnLbl();
+            textOutput = getScoresData();
 
-            //Use previous methods to get a string of data
-            string scoreData = getScoresData();
-            //initiate a new class to process threading the output file
-            ThreadLogic clsThread = new ThreadLogic(scoreData);
+            Thread thread1 = new Thread(new ThreadStart(OutputFile));
+            thread1.Start();
+            thread1.Name = "Thread1";
+        }
 
-            //start the thread that begins the classFunction to output/process data
-            Thread myThread = new Thread(new ThreadStart(clsThread.OutputFile));
-            myThread.Start();
+        private void OutputFile()
+        {
+            OutputFileLogic clsTl = new OutputFileLogic(textOutput);
+            clsTl.OutputFile();
+            outputFileBtn.Invoke(new DisplayMessageDelegate(ToggleBtnLbl));
+        }
 
-            if (myThread.IsAlive)
+        private void ToggleBtnLbl()
+        {
+            if (outputFileBtn.Enabled == true)
             {
+                outputFileBtn.Enabled = false;
+                OutputLbl.Text = "Writing to file...";
                 OutputLbl.ForeColor = Color.Red;
-                OutputLbl.Text = "Writing to file";
+            }
+            else if (outputFileBtn.Enabled == false)
+            {
+                outputFileBtn.Enabled = true;
+                OutputLbl.Text = "Finished writing to file.";
+                OutputLbl.ForeColor = Color.Green;
             }
 
-            OutputLbl.ForeColor = Color.Green;
-            OutputLbl.Text = "Finished writing to file";
-            outputFileBtn.Enabled = true;
         }
+
+        private delegate void DisplayMessageDelegate();
+
+
     }
 }
